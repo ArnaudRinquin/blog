@@ -134,6 +134,8 @@ And here are some more after a few more extra hours:
 
 ![screenshot-extra-3](./images/react-native-extra-3.png)
 
+![screenshot-extra-4](./images/react-native-extra-4.png)
+
 What the screenshots don't show is the feeling. It's native. You really cant tell the difference, it runs at 60fps and is as reactive as any regular native app. No pun intended.
 
 ## The tl:dr; - or Conclusion
