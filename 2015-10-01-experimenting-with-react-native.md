@@ -6,7 +6,7 @@ a whole weekend experimenting with facebook's [`react-native`](https://facebook.
 `react-native` is a technology that lets you write your iOS (Android under beta) application using javascript. Unlike other existing technologies such as [Apache cordova](https://cordova.apache.org/) or
 [ionics](http://ionicframework.com/), you are not writing an hybrid application that is compiled to native code. Instead, your javascript code will be executed live in a javascript environment and will manipulate real native components. As you'll see along this article, this makes a tremendous difference.
 
-![react-native]('./images/react-native.png')
+![react-native](./images/react-native.png)
 
 ## Objectives
 
@@ -79,7 +79,7 @@ Another great thing about webdev? The [Chrome Developer Tools](https://developer
 
 You will also enjoy the FPS meter and element inspector:
 
-![react-native-tools]('./images/react-native-tools.png')
+![react-native-tools](./images/react-native-tools.png)
 
 ### How do you do _X_? Can I do _Y_?
 
