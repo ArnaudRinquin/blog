@@ -4,7 +4,7 @@ This summer, instead of enjoying the bright and warm London weather, my friend [
 a whole weekend experimenting with facebook's [`react-native`](https://facebook.github.io/react-native/).
 
 `react-native` is a technology that lets you write your iOS (Android under beta) application using javascript. Unlike other existing technologies such as [Apache cordova](https://cordova.apache.org/) or
-[ionics](http://ionicframework.com/), you are not writing an hybrid application that is compiled to native code. Instead, your javascript code will be executed live in a javascript environment and will manipulate real native components. As you'll see along this article, this makes a tremendous difference.
+[ionics](http://ionicframework.com/), you are not writing an hybrid application, ie a web application wrappedinto a native shell. Instead, your javascript code will be executed live in a javascript environment and will manipulate real native components. As you'll see along this article, this makes a tremendous difference.
 
 ![react-native](./images/react-native.png)
 
@@ -35,15 +35,15 @@ Yup, that's it.
 
 ### Download the application code at runtime
 
-Apple recently changed its conditions regarding application code download. While it is forbidden to download and run **native** code, code that runs within the javascript environment can.
+Apple recently changed its conditions regarding application code download. While it is forbidden to download and run **native** code, you can do that with code running within the javascript environment.
 
 *Why this difference?* Because this code is isolated and can't really do any arm.
 
 *Why is that useful?* Because you can save a [~7 days](http://appreviewtimes.com/) delay on every app update. 7 days an unacceptable delay to any LEAN process, where [speed is a critical element of your success](https://en.wikipedia.org/wiki/Lean_startup#Build.E2.80.93Measure.E2.80.93Learn).
 
-The simple way to package you app is to embed the compiled `app.js` file right into it. But the clever way to do it is to host it on a CDN and make the app download it at runtime instead (saving the latest version for offline access).
+The simple way to package your app is to embed the compiled `app.jsbundle` file right into it. But the clever way to do it is to host it on a CDN and make the app downloading it at runtime instead (saving the latest version for offline access).
 
-That way your app updates will belong to one of two kinds: the application native code update, where you update the `react-native` library itself and any library embedding native code ; the javascript only code update.
+That way your app updates will belong to one of two kinds: the application native code updates, where you update the `react-native` library itself and any library embedding native code ; or the javascript code only updates.
 
 The first one requires your application to go through the review process, fortunately, you don't need to do them frequently.
 
@@ -61,7 +61,7 @@ The code you write has two characteristics:
 
 1. it's [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html), a React specific superset of javascript that looks like HTML. The usual first reaction to JSX is a disgust face but you end up accepting and loving it (and it's optional anyway).
 
-2. it's [ES6](http://es6-features.org/#Constants), or even ES7 code. *What is ES6? Should I care?* ES6 is the newest version of the javascript language and APIs. Basically the Rolls Royce of all the possible javascript environments any web dev dreams about. You ES6 (or ES7 actually) code is compiled down to _regular_ javascript using [babel](https://babeljs.io/), the operation is transparent and 100% reliable.
+2. it's [ES6](http://es6-features.org/#Constants), or even ES7 code. *What is ES6? Should I care?* ES6 is the newest version of the javascript language and APIs. Basically the Rolls Royce of all the possible javascript environments any web dev dreams about. Your ES6 (or ES7 actually) code is compiled down to _regular_ javascript using [babel](https://babeljs.io/), the operation is transparent, fast and 100% reliable.
 
 #### It's only React but for native apps
 
@@ -69,11 +69,11 @@ One of the promise of `react`, which was originally only created for the web, is
 
 Once you have understood the principles of `react`, writing a `react-native` application is not more difficult than a web one. Switch `div` for `View`, `span` for `Text` and you're good, basically.
 
-The other good news is that this set principles, while simple, is a mind-blowing step over more _classical / MVC_ way of building UIs. This topic deserves its own blog article but the essence of it is that your UI is a function of your application state and data: `react(data, state) => UI`. It let's you get ride of the giant spaghetti monstrosity any MVC application ultimately ends up being. More on this [here](http://jlongster.com/Removing-User-Interface-Complexity,-or-Why-React-is-Awesome), [here](https://facebook.github.io/react/docs/why-react.html) and [here](https://www.google.com/search?q=why%20react%20is%20awesome#q=reactjs+love).
+The other good news is that this set principles, while simple, is a mind-blowing step over more _classical / MVC_ way of building UIs. This topic deserves its own blog article but the essence of it is that your UI is a function of your application state and data: `react(data, state) => UI`. It lets you get rid of the giant spaghetti monstrosity any MVC application ultimately ends up being. More on this [here](http://jlongster.com/Removing-User-Interface-Complexity,-or-Why-React-is-Awesome), [here](https://facebook.github.io/react/docs/why-react.html) and [here](https://www.google.com/search?q=why%20react%20is%20awesome#q=reactjs+love).
 
 ### That developer dream feeling
 
-If there is one thing native developers envy to web devs, it is the live-reload. With `react-native`, you'll get it. There is not need to kill the app, wait for compilation, restart the app. While there is a compilation step (with babel), it is super fast and the application will just reload you javascript bundle. Without restarting. Sorry devs, no more [wheeled-chair-riding-sword-fighting](https://imgs.xkcd.com/comics/compiling.png).
+If there is one thing native developers envy to web devs, it is the live-reload. With `react-native`, you'll get it. There is not need to kill the app, wait for compilation, restart the app. While there is a compilation step (with babel), it is super fast and the application will just reload your javascript bundle. Without restarting. Sorry devs, no more [wheeled-chair-riding-sword-fighting](https://imgs.xkcd.com/comics/compiling.png).
 
 Another great thing about webdev? The [Chrome Developer Tools](https://developers.google.com/web/tools/setup/workspace/setup-devtools). Yes, you can get that too. The way it works is amazing: your javascript actually runs within Chrome and send instructions to the native part of `react-native` using SocketIO. Clever.
 
@@ -83,9 +83,9 @@ You will also enjoy the FPS meter and element inspector:
 
 ### How do you do _X_? Can I do _Y_?
 
-* _make API calls_: same way you'd do in a web app, using the [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) api.
+* _make API calls_: same way you'd do in a web app, using the [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) api. All the regular HTTP options are available, headers, methods, etc. It took us no time to wrap the awesome [Songkick API](https://www.songkick.com/developer).
 * _layout/style you application_: using a [subset](https://facebook.github.io/react-native/docs/style.html#content) of CSS, including `flex`.
-* _persist data on the phone_: there is an API for that™, bridging some native API (you do not need to care about it).
+* _persist data on the phone_: there is [an API](https://facebook.github.io/react-native/docs/asyncstorage.html#content) for that™, bridging some native API (you do not need to care about it).
 * _access push notifications_: again, there is [an API](https://facebook.github.io/react-native/docs/pushnotificationios.html#content) for that
 * _display a native map / date picker / you-name-it-component_: there are components wrapping almost every native one.
 * _use this nice advanced blur effect_: simply use the open source [library](https://github.com/Kureev/react-native-blur)
