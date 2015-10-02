@@ -95,7 +95,7 @@ The rule of thumb: if your stuff is not accessible through the existing `react-n
 
 ### Sharing code between platforms
 
-This is something we did not actually do as we don't have equivalent an web application, but we know it is possible  to share most of your code between apps.
+This is something we did not actually do as we don't have an equivalent web application, but we know it is possible  to share most of your code between apps.
 
 If you follow [Dan Abramov](https://github.com/gaearon)'s [_Smart and Dumb components_](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0) guidelines, most of the complexity of you application will be abstracted out of the view layer, hooked using usually thin _Smart_ components wrapping platform specific but simple _Dumb_ components.
 
