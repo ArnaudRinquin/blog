@@ -97,7 +97,7 @@ The rule of thumb: if your stuff is not accessible through the existing `react-n
 
 This is something we didn't do, but we know it is possible to share most of your code between apps.
 
-If you follow [Dan Abramov](https://github.com/gaearon)'s [_Smart and Dumb components_](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0) guidelines, most of the complexity of you application will be abstracted out of the view layer, hooked using usually thin _Smart_ components wrapping platform specific but simple _Dumb_ components.
+If you follow [Dan Abramov](https://github.com/gaearon)'s [_Smart and Dumb components_](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0) guidelines, most of the complexity of your application will be abstracted out of the view layer, hooked using usually thin _Smart_ components wrapping platform specific but simple _Dumb_ components.
 
 ![react-native-smart-dumb](./images/react-native-smart-dumb.png)
 
