@@ -19,6 +19,8 @@ You will get:
 * A nice UI for tests results and control by simply installing a Chrome Extension
 * CI testing for FREE, no hassle
 
+Checkout this [example](https://github.com/ArnaudRinquin/browser-tap/example) or watch me [talk about it](http://bit.ly/browser-tap-talk) at #londonreact.
+
 ![browser-tap-screenshot](../images/browser-tap-screenshot.png)
 
 ## Motivations
