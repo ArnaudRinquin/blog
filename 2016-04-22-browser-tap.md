@@ -2,26 +2,19 @@
 
 **TL;DR:**
 
-This article explains how to make your unit test setup and workflow as simple as possible (assuming you use [`babel`](https://babeljs.io/)):
+This article explains how to make your unit test setup and workflow as simple as possible (assuming you use [`babel`](https://babeljs.io/)).
 
-Following these 3 steps:
+Key ideas:
 
-* npm install a babel plugin
-* target your test framework in `.babelrc`
-* install an Chrome Extension
-
-You will get:
-
-* Code and tests next to each other ; tests are wiped from production build
-* Get rid of the test runner ; and the code bundler that goes with it
-* Tests running in any browser ; lets you use your regular debug tools
-* A proper TDD workflow ; just leverage webpack/browserify watch mode
-* A nice UI for tests results and control by simply installing a Chrome Extension
-* CI testing for FREE, no hassle
+* test code is regular code
+* tests run in the browser every time you build your app, just like regular code
+* ditch them automatically for production builds
+* use a Chrome Extension to control execution and improved display of results
+* CI mode comes for free
 
 Checkout this [example](https://github.com/ArnaudRinquin/browser-tap/example) or watch me [talk about it](http://bit.ly/browser-tap-talk) at #londonreact.
 
-![browser-tap-screenshot](../images/browser-tap-screenshot.png)
+![browser-tap-screenshot](./images/browser-tap-screenshot.png)
 
 ## Motivations
 
@@ -41,9 +34,9 @@ Setting up a `build` pipeline is becoming simpler everyday. My current favorite 
 * ES6 transpiling
 * watch mode
 * sourcemaps
-* a server (`webpack-dev-server`)
+* a dev server (with `webpack-dev-server`)
 * minification
-* You can even have your CSS compiled with webpack
+* event css
 
 But then you want to integrate your unit testing solution and the problems arise:
 
@@ -55,24 +48,15 @@ But then you want to integrate your unit testing solution and the problems arise
   * node environment with a virtual DOM (`mocha + jsdom`)
 * how do you run that in continuous integration?
 * debugging becomes hell
-
-Finding the right combination of modules and config to manage all these test related issues adds an incredible amount of time. Sometimes you will have to rethink the whole toolchain to adapt.
-
-And then the workflow is not really appealing:
-
-In most cases you'll bundle twice, hopefully in parallel, which make the whole chain super slow. Depending on the setup, getting the result of a single code change can take more then 30 seconds. That's crazy.
-
-Also, the code and tests are in separated files. It is not unbearable but having to open to files and switch from one to the other seems just unnecessary.
-
-> aint_nobody_got_time_for_that.gif
-
-Also, if we ever find an existing `stuff.js` file without `stuff.spec.js`, chances are that `stuff.spec.js` is never going to be created.
+  * no or poor sourcemaps support
+  * no debugger
+  * console.log driven debug
 
 ## The desirable workflow
 
 While learning from [Dan Abramov demoing (and live re-implementing!) redux in jsbin](https://egghead.io/lessons/javascript-redux-writing-a-counter-reducer-with-tests), I loved how he simply writes tests just below the code.
 
-![egghead-redux](../images/egghead-redux.png)
+![egghead-redux](./images/egghead-redux.png)
 
 The whole app, `code + tests` is compiled on save and thrown in the browser, tests results are shown in the console.
 
@@ -103,7 +87,7 @@ Is it hard? _It should take 5 minutes, top_
 
 This task is much simpler that it seems. It takes two steps:
 
-1. `npm install babel-plugin-discard-module-references`
+1. `npm install -D babel-plugin-discard-module-references`
 1. Copy and adapt this blob in your `.babelrc`
   ```json
   {
@@ -153,11 +137,6 @@ export default function noop(anything) {
 
 As you might notice, the `expect` module has been dropped has well. Even if it's not directly targeted by the config, it is dropped has the import is not used anymore.
 
-This happens has the plugin works in two steps:
-
-1. Remove targeted modules: `tape`
-1. Remove now unused modules: `expect`
-
 Of course, you can whitelist modules so there are never removed.
 
 More details on [`babel-plugin-discard-module-references` github repo](https://github.com/ArnaudRinquin/babel-plugin-discard-module-references)
@@ -182,7 +161,7 @@ ok 4 renders children when passed in
 # ok
 ```
 
-It's not super fancy but it get the job done.
+It's not super fancy but it gets the job done.
 
 Now, a better option is to use [`browser-tap`](https://github.com/ArnaudRinquin/browser-tap) instead. It's just a 3 lines wrapper around `tape`. The only different is that it will look for `window.tapExtension`. If it is defined, it will delegate everything to that extension. If it doesn't it will just return `tape` and it will work just as well.
 
@@ -190,7 +169,7 @@ This really simple hack lets us delegate the tests execution and display to a Ch
 
 So now, simply install the `browser-tap` extension and enjoy this awesome UI:
 
-![browser-tap-extension-demo](../images/browser-tap-extension-demo.gif)
+![browser-tap-extension-demo](./images/browser-tap-extension-demo.gif)
 
 What you get:
 
@@ -203,7 +182,7 @@ What you get:
 * Desktop notifications (off / always / on error)
 * A status icon with a badge
 
-The only cost if you are already using `tape` is a search and replace to import `browser-tap` instead of `tape`. If you are using webpack it's even easier, simply use [`webpack resolve.alias`](https://webpack.github.io/docs/configuration.html#resolve-alias) feature:
+The only cost if you are already using `tape` is a search and replace to import `browser-tap` instead of `tape`. If you are using `webpack` it's even easier, simply use [`webpack resolve.alias`](https://webpack.github.io/docs/configuration.html#resolve-alias) feature:
 
 ```js
 {
@@ -298,13 +277,11 @@ Simply using `tape + babel + a Chrome extension`, we have:
 
 I think the reason our test environment got so complicated is because we've lost track of what tests and test frameworks actually are.
 
-We assume they must be complex processes doing crazy things. They should not.
-
-Remember the time you wrote that unit test framework? It was naive, it was simple. What went wrong?
+We assume they must be complex blackboxes doing super clever things. They don't have to.
 
 Let's try and forget our assumptions regarding unit tests tooling.
 
-Tests are small bits of code checking of equalities and throwing exceptions.
+Tests are small bits of code checking stuff and throwing exceptions.
 
 Test framework collect the exceptions and summarize the results.
 
