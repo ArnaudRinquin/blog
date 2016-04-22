@@ -1,0 +1,23 @@
+{
+  "name": "blog",
+  "version": "0.0.0",
+  "private": true,
+  "description": "https://arnaud.rocks/blog",
+  "main": "index.js",
+  "scripts": {
+    "medium": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArnaudRinquin/blog.git"
+  },
+  "author": "Arnaud Rinquin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ArnaudRinquin/blog/issues"
+  },
+  "homepage": "https://arnaud.rocks/blog",
+  "devDependencies": {
+    "medium-cli": "0.0.7"
+  }
+}
